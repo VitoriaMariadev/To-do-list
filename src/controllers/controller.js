@@ -1,6 +1,4 @@
 import to_doServices from "../services/to_do.services.js";
-import mongoose from "mongoose";
-
 
 // Função para cadastrar uma lista
 const create = async (req, res) => { // Função assincrona, precisa sair do código para executar
@@ -42,18 +40,9 @@ const findAll = async (req, res) => { // Função assincrona, precisa sair do c�
 
 // Função para procurar uma lista especifica usando o 'id'
 const findById = async (req, res) => {
-    const id = req.params.id
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).send({menssagem: "Id inválido"})
+    const to_do = req.to_do
 
-    }
-
-    const to_do = await to_doServices.findByIdService(id)
-
-    if (!to_do) {
-        return res.status(400).send({menssagem: "Lista não encontrada"})
-    }
     res.send(to_do)
 }
 
@@ -66,16 +55,9 @@ const update = async (req, res) => {
         return res.status(400).send({ menssagem: 'Mude pelo menos um campo para fazer alterações' })
     }
 
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).send({menssagem: "Id inválido"})
-    }
+    const {id, to_do} = req;
 
-    const to_do = await to_doServices.findByIdService(id);
-
-    if (!to_do) {
-        return res.status(400).send({menssagem: "Lista não encontrada"})
-    }
+    // const to_do = await to_doServices.findByIdService(id);
 
     await to_doServices.updateService(
         id,
