@@ -6,7 +6,7 @@ const route = Router()
 route.post('/', to_doController.create); //Post cadastra informações no BD
 route.get('/', to_doController.findAll); //Get pega informações no BD
 route.get('/:id', to_doController.findById); //Get pega informações no BD com um parametro
-route.patch('/:id', to_doController.update)
+route.patch('/:id', to_doController.update) // Patch atualiza um elemento por vez
 //route.get('/:nome', findByName)
 
 export default route

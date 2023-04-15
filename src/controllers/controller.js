@@ -57,6 +57,8 @@ const findById = async (req, res) => {
     res.send(to_do)
 }
 
+
+// Função para atualizar um elemento do to-do-list
 const update = async (req, res) => {
     const { nome, dia, tarefas } = req.body;
 
