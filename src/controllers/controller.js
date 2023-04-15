@@ -1,4 +1,6 @@
 import to_doServices from "../services/to_do.services.js";
+import mongoose from "mongoose";
+
 
 // Função para cadastrar uma lista
 const create = async (req, res) => { // Função assincrona, precisa sair do código para executar
@@ -41,6 +43,12 @@ const findAll = async (req, res) => { // Função assincrona, precisa sair do c�
 // Função para procurar uma lista especifica usando o 'id'
 const findById = async (req, res) => {
     const id = req.params.id
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({menssagem: "Id inválido"})
+
+    }
+
     const to_do = await to_doServices.findByIdService(id)
 
     if (!to_do) {
@@ -49,6 +57,8 @@ const findById = async (req, res) => {
     res.send(to_do)
 }
 
+
+// Função para procurar valores no BD pelo 'nome'
 /*
 const findByName = async (req, res) => {
     const nome = req.params.nome
