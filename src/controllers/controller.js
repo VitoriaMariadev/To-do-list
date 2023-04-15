@@ -7,7 +7,7 @@ const create = async (req, res) => { // Função assincrona, precisa sair do có
     const { nome, dia, tarefas } = req.body;
 
     if (!nome || !dia) {
-        res.status(400).send({ menssagem: 'Tem um campo vazio!' })
+        return res.status(400).send({ menssagem: 'Tem um campo vazio!' })
     }
 
     const to_do = await to_doServices.create(req.body); //Só ocorre quando a função assincrona for executada
@@ -57,6 +57,35 @@ const findById = async (req, res) => {
     res.send(to_do)
 }
 
+const update = async (req, res) => {
+    const { nome, dia, tarefas } = req.body;
+
+    if (!nome && !dia && !tarefas) {
+        return res.status(400).send({ menssagem: 'Mude pelo menos um campo para fazer alterações' })
+    }
+
+    const id = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({menssagem: "Id inválido"})
+    }
+
+    const to_do = await to_doServices.findByIdService(id);
+
+    if (!to_do) {
+        return res.status(400).send({menssagem: "Lista não encontrada"})
+    }
+
+    await to_doServices.updateService(
+        id,
+        nome,
+        dia,
+        tarefas
+    )
+
+    res.send({menssagem: 'Lista mudada com sucesso!'})
+    
+}
+
 
 // Função para procurar valores no BD pelo 'nome'
 /*
@@ -71,4 +100,4 @@ const findByName = async (req, res) => {
 
 }*/
 
-export default{create, findAll, findById}
+export default{create, findAll, findById, update}
