@@ -5,6 +5,7 @@ import validTo_do from "../middlewares/global.middlewares.js"
 
 const route = Router()
 
+// O middlewares devem rodar antes de entrar no controller
 route.post('/', to_doController.create); //Post cadastra informações no BD
 route.get('/', to_doController.findAll); //Get pega informações no BD
 route.get('/:id',validId, validTo_do, to_doController.findById); //Get pega informações no BD com um parametro

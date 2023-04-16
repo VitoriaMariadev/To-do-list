@@ -2,74 +2,87 @@ import to_doServices from "../services/to_do.services.js";
 
 // Função para cadastrar uma lista
 const create = async (req, res) => { // Função assincrona, precisa sair do código para executar
-    const { nome, dia, tarefas } = req.body;
+    try { // Tentar
+        const { nome, dia, tarefas } = req.body;
 
-    if (!nome || !dia) {
-        return res.status(400).send({ menssagem: 'Tem um campo vazio!' })
-    }
-
-    const to_do = await to_doServices.create(req.body); //Só ocorre quando a função assincrona for executada
-
-    if (!to_do) {
-        return res.status(400)({ menssagem: 'Erro na criação da lista' })
-    }
-
-    res.status(201).send({
-        menssagem: 'Lista criada com sucesso',
-        lista: {
-            id: to_do._id,
-            nome,
-            dia,
-            tarefas
+        if (!nome || !dia) {
+            return res.status(400).send({ menssagem: 'Tem um campo vazio!' })
         }
-    })
+
+        const to_do = await to_doServices.create(req.body); //Só ocorre quando a função assincrona for executada
+
+        if (!to_do) {
+            return res.status(400)({ menssagem: 'Erro na criação da lista' })
+        }
+
+        res.status(201).send({
+            menssagem: 'Lista criada com sucesso',
+            lista: {
+                id: to_do._id,
+                nome,
+                dia,
+                tarefas
+            }
+        })
+    } catch (err) { // Pegar
+        res.status(500).send({ menssagem: err.menssagem })
+    }
 };
 
 
 // Função para procurar todasa as listas
 const findAll = async (req, res) => { // Função assincrona, precisa sair do código para executar
-    const to_dos = await to_doServices.findAllService();  //Só ocorre quando a função assincrona for executada
+    try {
+        const to_dos = await to_doServices.findAllService();  //Só ocorre quando a função assincrona for executada
 
-    if (to_dos.length === 0) {
-        return res.status(400).send({menssagem: 'Não há listas cadastradas'})
+        if (to_dos.length === 0) {
+            return res.status(400).send({ menssagem: 'Não há listas cadastradas' })
+        }
+
+        res.send(to_dos)
+    } catch (err) {
+        res.status(500).send({ menssagem: err.menssagem })
     }
-
-    res.send(to_dos)
-
-}
+};
 
 // Função para procurar uma lista especifica usando o 'id'
 const findById = async (req, res) => {
+    try {
+        const to_do = req.to_do
 
-    const to_do = req.to_do
-
-    res.send(to_do)
+        res.send(to_do)
+    } catch (err) {
+        res.status(500).send({ menssagem: err.menssagem })
+    }
 }
 
 
 // Função para atualizar um elemento do to-do-list
 const update = async (req, res) => {
-    const { nome, dia, tarefas } = req.body;
+    try {
+        const { nome, dia, tarefas } = req.body;
 
-    if (!nome && !dia && !tarefas) {
-        return res.status(400).send({ menssagem: 'Mude pelo menos um campo para fazer alterações' })
-    }
+        if (!nome && !dia && !tarefas) {
+            return res.status(400).send({ menssagem: 'Mude pelo menos um campo para fazer alterações' })
+        }
 
-    const {id, to_do} = req;
+        const { id, to_do } = req;
 
-    // const to_do = await to_doServices.findByIdService(id);
+        // const to_do = await to_doServices.findByIdService(id);
 
-    await to_doServices.updateService(
-        id,
-        nome,
-        dia,
-        tarefas
-    )
+        await to_doServices.updateService(
+            id,
+            nome,
+            dia,
+            tarefas
+        )
 
-    res.send({menssagem: 'Lista mudada com sucesso!'})
-    
+        res.send({ menssagem: 'Lista mudada com sucesso!' })
+    }catch (err) {
+        res.status(500).send({ menssagem: err.menssagem })
+
 }
-
+};
 
 // Função para procurar valores no BD pelo 'nome'
 /*
@@ -84,4 +97,4 @@ const findByName = async (req, res) => {
 
 }*/
 
-export default{create, findAll, findById, update}
+export default { create, findAll, findById, update }
