@@ -6,7 +6,7 @@ const findAllService = () => to_do_bd.find(); // Procura todas as listas
 
 const findByIdService = (id) => to_do_bd.findById(id); // Procura uma lista por um parametro especifico
 
-const updateService = (
+const updateService = ( // Função para atualizar os valores do banco de dados
     id,
     nome,
     dia,
@@ -25,5 +25,4 @@ export default {
     findByIdService,
     updateService
 }
-
-//teste
+// aaaa
