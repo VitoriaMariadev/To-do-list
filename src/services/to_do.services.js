@@ -17,12 +17,12 @@ const updateService = ( // Função para atualizar os valores do banco de dados
     tarefas
 })
 
-// const findByNameService = (nome) => to_do_bd.findByName(nome);
+const deleteService = (id) => to_do_bd.findByIdAndDelete(id) // Função para deletar a partir do ID
 
 export default {
     create,
     findAllService,
     findByIdService,
-    updateService
+    updateService,
+    deleteService
 }
-// aaaa
