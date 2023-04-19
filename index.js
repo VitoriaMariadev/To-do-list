@@ -7,6 +7,8 @@ dotenv.config()
 const app = express();
 const port = 3000
 
+
+// Caminho para acessar
 connectDatabase()
 app.use(express.json());
 app.use("/to_do", to_doRoute)
