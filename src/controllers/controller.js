@@ -84,17 +84,20 @@ const update = async (req, res) => {
 }
 };
 
-// Função para procurar valores no BD pelo 'nome'
-/*
-const findByName = async (req, res) => {
-    const nome = req.params.nome
-    const to_do = await to_doServices.findByNameService(nome)
-    if (!to_do) {
-        return res.status(400).send({menssagem: "Lista não encontrada"})
+// Função para deletar um elemento do to-di-list
+const remove = async (req, res) => {
+    try{
+        const {id} = req;
+        if (!id){
+            return res.status(400).json({menssagem: 'O campo Id está vazio'})
+        }
+
+        const deletado = await to_doServices.deleteService(id)
+
+        res.json({menssagem: 'Lista deletada com sucesso', deletado});
+    }catch (err) {
+        res.status(500).json({menssagem: err.menssagem})
     }
-
-    res.send(to_do)
-
-}*/
+};
 
 export default { create, findAll, findById, update }
