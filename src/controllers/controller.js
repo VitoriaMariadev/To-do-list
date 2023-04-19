@@ -100,4 +100,4 @@ const remove = async (req, res) => {
     }
 };
 
-export default { create, findAll, findById, update }
+export default { create, findAll, findById, update, remove }
