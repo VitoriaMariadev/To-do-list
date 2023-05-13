@@ -16,7 +16,7 @@ connectDatabase()
 app.use(express.json());
 app.use("/to_do", to_doRoute)
 
-Route.get('/', (req, res) => {
+to_doRoute.get('/', (req, res) => {
     return res.json({
         sucess: true,
         message: "sucesso"
