@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "vercel-build": "npx prisma migrate deploy"
+    "vercel-build": "start"
 
   },
   "keywords": [],
