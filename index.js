@@ -13,6 +13,17 @@ const port = 3000
 connectDatabase()
 app.use(express.json());
 app.use("/to_do", to_doRoute)
+
+Route.get('/', (req, res) => {
+    return res.json({
+        sucess: true,
+        message: "sucesso"
+    })
+    
+})
+
+app.use(cors())
+
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
 
 app.use(cors())
