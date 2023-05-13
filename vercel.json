@@ -1,5 +1,5 @@
 {
-    "name":"to-do-list",
+    "name":"to-do",
     "version":2,
     "builds": [{
         "src":"./index.js",
