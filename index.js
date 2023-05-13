@@ -3,7 +3,7 @@ import to_doRoute from "./src/routes/routes.js"
 import connectDatabase from "./src/database/db.js";
 import cors from 'cors'
 import dotenv from "dotenv"
-import { Router } from "express";
+import to_doRoute from './src/routes/routes.js'
 dotenv.config()
 
 const app = express();
