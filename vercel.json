@@ -1,5 +1,5 @@
 {
-    "name":"to-do-api",
+    "name":"to-doapi",
     "version":2,
     "builds": [{
         "src":"./index.js",
