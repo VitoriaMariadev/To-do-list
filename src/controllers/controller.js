@@ -6,7 +6,7 @@ const create = async (req, res) => { // Função assincrona, precisa sair do có
         const { nome, dia, tarefas } = req.body;
 
         if (!nome || !dia) {
-            return res.status(400).send({ menssagem: 'Tem um campo vazio!' })
+            return res.status(400).json({ menssagem: 'Tem um campo vazio!' })
         }
 
         const to_do = await to_doServices.create(req.body); //Só ocorre quando a função assincrona for executada
@@ -15,7 +15,7 @@ const create = async (req, res) => { // Função assincrona, precisa sair do có
             return res.status(400)({ menssagem: 'Erro na criação da lista' })
         }
 
-        res.status(201).send({
+        res.status(201).json({
             menssagem: 'Lista criada com sucesso',
             lista: {
                 id: to_do._id,
@@ -25,7 +25,7 @@ const create = async (req, res) => { // Função assincrona, precisa sair do có
             }
         })
     } catch (err) { // Pegar
-        res.status(500).send({ menssagem: err.menssagem })
+        res.status(500).json({ menssagem: err.menssagem })
     }
 };
 
@@ -36,12 +36,12 @@ const findAll = async (req, res) => { // Função assincrona, precisa sair do c�
         const to_dos = await to_doServices.findAllService();  //Só ocorre quando a função assincrona for executada
 
         if (to_dos.length === 0) {
-            return res.status(400).send({ menssagem: 'Não há listas cadastradas' })
+            return res.status(400).json({ menssagem: 'Não há listas cadastradas' })
         }
 
-        res.send(to_dos)
+        res.json(to_dos)
     } catch (err) {
-        res.status(500).send({ menssagem: err.menssagem })
+        res.status(500).json({ menssagem: err.menssagem })
     }
 };
 
@@ -50,9 +50,9 @@ const findById = async (req, res) => {
     try {
         const to_do = req.to_do
 
-        res.send(to_do)
+        res.json(to_do)
     } catch (err) {
-        res.status(500).send({ menssagem: err.menssagem })
+        res.status(500).json({ menssagem: err.menssagem })
     }
 }
 
@@ -63,7 +63,7 @@ const update = async (req, res) => {
         const { nome, dia, tarefas } = req.body;
 
         if (!nome && !dia && !tarefas) {
-            return res.status(400).send({ menssagem: 'Mude pelo menos um campo para fazer alterações' })
+            return res.status(400).json({ menssagem: 'Mude pelo menos um campo para fazer alterações' })
         }
 
         const { id, to_do } = req;
@@ -77,9 +77,9 @@ const update = async (req, res) => {
             tarefas
         )
 
-        res.send({ menssagem: 'Lista mudada com sucesso!' })
+        res.json({ menssagem: 'Lista mudada com sucesso!' })
     }catch (err) {
-        res.status(500).send({ menssagem: err.menssagem })
+        res.status(500).json({ menssagem: err.menssagem })
 
 }
 };

@@ -4,12 +4,12 @@ import connectDatabase from "./src/database/db.js";
 import cors from 'cors'
 import dotenv from "dotenv"
 import to_doRoute from './src/routes/routes.js'
+
 dotenv.config()
 
 const app = express();
 const port = 3000
 
-const Route = Router()
 
 // Caminho para acessar
 connectDatabase()
