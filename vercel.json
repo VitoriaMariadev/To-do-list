@@ -1,5 +1,5 @@
 {
-    "name":"to-do",
+    "name":"to-do-api",
     "version":2,
     "builds": [{
         "src":"./index.js",
@@ -8,6 +8,6 @@
     "routes":[
         {
             "src":"/(.*)",
-            "dest":"./index.js"
+            "dest":"/"
     }]
 }
